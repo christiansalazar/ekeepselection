@@ -25,6 +25,7 @@ Please copy this extension into your protected/extensions directory or simply cl
 ~~~
   $this->widget('zii.widgets.grid.CGridView', array(
 		'id'=>'my-gridview',                  // IMPORTANT
+		'selectableRows'=>2,                  // 2 = allow multiple selection 
 		'dataProvider'=> $anyDataProvider,
 		'columns'=>array(
 			array('class'=>'CCheckBoxColumn'),  // ADD A CCheckBoxColumn
