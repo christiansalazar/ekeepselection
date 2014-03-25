@@ -91,11 +91,14 @@ $.fn.keepSelectionData = function(){
 	var id = $(this).attr('id');
 	var selection = $('#'+id).parent().data('ekeepselection');
 	var items = [];
+	var n=0;
 	$.each(selection, function(cur_page,items_selected){
 		var tmp = new String(items_selected);
 		$.each(tmp.split(','),function(index,item){
 			items.push(item);
+			n++;
 		});
 	});	
+	if(n==0) return false;
 	return items;
 }
