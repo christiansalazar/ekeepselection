@@ -51,9 +51,9 @@ $.fn.keepSelection = function() {
 		return items;
 	}
 
-	var _afterAjaxUpdate = function(){
+	var _afterAjaxUpdate = function(id,data){
 		gridview = $('#'+id);
-		if(orig_afterAjaxUpdate) orig_afterAjaxUpdate();
+		if(orig_afterAjaxUpdate) orig_afterAjaxUpdate(id,data);
 		// recover the selection from buffer into the selected page
 		var current_page = _get_selected_page();
 		var selection = _getdata();
@@ -68,9 +68,9 @@ $.fn.keepSelection = function() {
 			}
 	}
 
-	var _selectionChanged = function(){
+	var _selectionChanged = function(id){
 		gridview = $('#'+id);
-		if(orig_selectionChanged) orig_selectionChanged();
+		if(orig_selectionChanged) orig_selectionChanged(id);
 		// read selection and push into a data array
 		var current_selection= gridview.yiiGridView('getSelection');
 		var current_page = _get_selected_page();
