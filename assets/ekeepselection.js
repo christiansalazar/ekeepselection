@@ -90,6 +90,8 @@ $.fn.keepSelection = function() {
 $.fn.keepSelectionData = function(){
 	var id = $(this).attr('id');
 	var selection = $('#'+id).parent().data('ekeepselection');
+	if(selection == undefined)
+		return [];
 	var items = [];
 	var n=0;
 	$.each(selection, function(cur_page,items_selected){
