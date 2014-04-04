@@ -41,6 +41,8 @@ $.fn.keepSelection = function() {
 	var _get_selected_items = function() {
 		gridview = $('#'+id);
 		var selection = _getdata();
+		if(selection == undefined)
+			return [];
 		var items = [];
 		$.each(selection, function(cur_page,items_selected){
 			var tmp = new String(items_selected);
@@ -57,7 +59,7 @@ $.fn.keepSelection = function() {
 		// recover the selection from buffer into the selected page
 		var current_page = _get_selected_page();
 		var selection = _getdata();
-		if(selection)
+		if(selection != undefined)
 			if(selection[current_page]){
 				var saved_selection = new String(selection[current_page]);
 				$.each(saved_selection.split(','),function(k,item_selected){
@@ -70,14 +72,14 @@ $.fn.keepSelection = function() {
 
 	var _selectionChanged = function(id){
 		gridview = $('#'+id);
-		if(orig_selectionChanged) orig_selectionChanged(id);
 		// read selection and push into a data array
 		var current_selection= gridview.yiiGridView('getSelection');
 		var current_page = _get_selected_page();
 		var selection = _getdata();
-		if(!selection) { selection = []; }
+		if((!selection) || (selection==undefined)) { selection = []; }
 		selection[current_page] = current_selection;
 		_setdata(selection);
+		if(orig_selectionChanged) orig_selectionChanged(id);
 	}
 
 	$settings.afterAjaxUpdate = _afterAjaxUpdate;
@@ -91,7 +93,7 @@ $.fn.keepSelectionData = function(){
 	var id = $(this).attr('id');
 	var selection = $('#'+id).parent().data('ekeepselection');
 	if(selection == undefined)
-		return [];
+		return false;
 	var items = [];
 	var n=0;
 	$.each(selection, function(cur_page,items_selected){
